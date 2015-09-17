@@ -1,0 +1,11 @@
+
+{#liens css spécifique à chaque page  #}
+    <link rel="stylesheet" href="{{ basePath }}/css/zelda.css">
+
+{% if ( env == 'dev' ) %}
+
+    <link rel="stylesheet/less" type="text/css" href="{{ basePath }}/less/zelda.less">
+
+{% else %}
+        <link rel="stylesheet" href="{{ basePath }}/css/zelda.css">
+{% endif%}
