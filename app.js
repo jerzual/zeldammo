@@ -1,9 +1,20 @@
-var express = require('express')
-    , models = require('./src/models')
-    , log4js = require('log4js')
-    , http = require('http')
-    , fs = require('fs')
-    , path = require('path');
+//Express and its middlewares
+var express = require('express');
+var session = require('express-session')
+var errorHandler = require('errorhandler');
+var favicon = require('serve-favicon');
+var multer = require('multer');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+//var cookieParser = require('cookie-parser');
+
+var log4js = require('log4js');
+//node.js core dependencies
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
+//internal dependencies
+var models = require('./src/models');
 
 var logger = log4js.getLogger();
 logger.setLevel('INFO');
@@ -19,22 +30,22 @@ app.use(log4js.connectLogger(logger, { level: log4js.levels.DEBUG }));
 app.set('port', process.env.PORT ||5000);
 app.set('views', __dirname + '/src/views');
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
-//less to css automatic compilatin
-app.use(require('less-middleware')({ src:__dirname + '/public' }));
+app.use(favicon(__dirname + '/public/favicon.png'));
+//app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+//app.use(cookieParser('your secret here'));
+app.use(session({resave:true,saveUninitialized:true,secret:'zeldaisagirl'}));
+//app.use(app.router);
+
 //static resources
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 // development only
 if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
+    app.use(errorHandler());
 }
 
 /**
@@ -46,15 +57,10 @@ app.get('/',
     }
 );
 /**
- * Partials loaded via requests
+ * Specific app routes.
  */
-app.get('/partial/:name',
-//partials for angular
-    function(req, res) {
-        var name = req.params.name;
-        res.render('partials/' + name);
-    }
-);
+app.get('/auth',require('./src/routes/auth'));
+
 var server = http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'))
+    logger.info('Express server listening on port ' + app.get('port'))
 });
