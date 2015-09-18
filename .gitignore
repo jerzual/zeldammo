@@ -5,4 +5,5 @@ node_modules/
 roms/
 public/css/*.css
 public/js/*.min.js
+*.map
 env.sh
