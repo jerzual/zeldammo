@@ -1,4 +1,4 @@
-var Seed = require('seed');
+
 /*
 
 CREATE TABLE users (
@@ -12,26 +12,7 @@ CREATE TABLE users (
 
 */
 
-exports.user = Seed.Model.extend('user', {
-    schema: new Seed.Schema({
-        'name': String
-    })
-});
-{/*
-    return{
-    hasMany:function(){
-    //init relationships
+exports.user = function Message(sequelize, DataTypes)
+{
 
-        return array("shares", "messages", "friends")
-    );
-
-    public function profileUrl() 
-    {
-        return "http://www.facebook.com/profile.php?id=" . $this->uid; 
-    }
-
-    public function imageUrl()
-    {
-        return "https://graph.facebook.com/" . $this->uid . "/picture?type=square";  
-    }*/
-}
+};
