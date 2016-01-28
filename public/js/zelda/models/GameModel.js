@@ -1,32 +1,26 @@
 // GameModel.js
 // --------
-define(["jquery", "backbone"],
+import {Model} from 'backbone';
 
-    function($, Backbone) {
-
-        // Creates a new Backbone GameModel class object
-        var GameModel = Backbone.Model.extend({
-
-            // Model Constructor
-            initialize: function() {
-
-            },
-
-            // Default values for all of the GameModel attributes
-            defaults: {
-
-            },
-
-            // Gets called automatically by Backbone when the set and/or save methods are called (Add your own logic)
-            validate: function(attrs) {
-
-            }
-
-        });
-
-        // Returns the GameModel class
-        return GameModel;
+// Creates a new Backbone Model class object
+export default class GameModel extends Model{
+    constructor(){
 
     }
 
-);
+    // Model Constructor
+    initialize() {
+
+    }
+
+    // Default values for all of the Model attributes
+    defaults(){
+
+    }
+
+    // Gets called automatically by Backbone when the set and/or save methods are called (Add your own logic)
+    validate(attrs) {
+
+    }
+
+};

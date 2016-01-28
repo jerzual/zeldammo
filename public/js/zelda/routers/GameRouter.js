@@ -1,38 +1,28 @@
 // DesktopRouter.js
 // ----------------
-define(["jquery", "backbone", "models/Model", "views/View", "collections/Collection"],
+import Backbone, {Router} from 'backbone';
 
-    function($, Backbone, Model, View, Collection) {
+export default class GameRouter extends Router{
 
-        var GameRouter = Backbone.Router.extend({
+    initialize() {
 
-            initialize: function() {
-
-                // Tells Backbone to start watching for hashchange events
-                Backbone.history.start();
-
-            },
-
-            // All of your Backbone Routes (add more)
-            routes: {
-
-                // When there is no hash on the url, the home method is called
-                "": "index"
-
-            },
-
-            index: function() {
-
-                // Instantiates a new view which will render the header text to the page
-                new View();
-
-            }
-
-        });
-
-        // Returns the DesktopRouter class
-        return GameRouter;
+        // Tells Backbone to start watching for hashchange events
+        Backbone.history.start();
 
     }
 
-);
+    // All of your Backbone Routes (add more)
+    routes(){
+
+        // When there is no hash on the url, the home method is called
+        return {"": "index"};
+    }
+
+    index() {
+
+        // Instantiates a new view which will render the header text to the page
+        new View();
+
+    }
+
+}

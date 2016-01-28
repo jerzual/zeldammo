@@ -1,9 +1,9 @@
-var $ = require('jquery');
-var Backbone = require('backbone');
-var _ = require('underscore');
-var Handlebars = require('handlebars');
-var Phaser = require('phaser');
-var GameRouter = require('./zelda/routers/GameRouter');
+import $ from 'jquery';
+import Backbone from 'backbone';
+import _ from 'underscore';
+import Handlebars from 'handlebars';
+import Phaser from 'phaser';
+import GameRouter from './zelda/routers/GameRouter';
 Backbone.$ = $;
 
 
