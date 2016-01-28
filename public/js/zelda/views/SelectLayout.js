@@ -1,3 +1,3 @@
-define(["models/Player","models/Game","views/SelectView"],function(){
-
-})
+import Player from '../models/Player';
+import Game from '../models/Game';
+import SelectView from '../views/SelectView';

@@ -14,7 +14,7 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 //internal dependencies
-var models = require('./src/models');
+var models = require('./server/models');
 
 var logger = log4js.getLogger();
 logger.setLevel('INFO');
@@ -59,7 +59,7 @@ app.get('/',
 /**
  * Specific app routes.
  */
-app.get('/auth',require('./src/routes/auth'));
+app.get('/auth',require('./server/routes/auth'));
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     logger.info('Express server listening on port ' + app.get('port'))

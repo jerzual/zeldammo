@@ -36,6 +36,6 @@ function bundle() {
         .pipe(gulp.dest('./public/js/'));
 }
 
-gulp.task('javascript', bundle);
+gulp.task('browserify', bundle);
 bro.on('update', bundle); // on any dep update, runs the bundler
 bro.on('log', gutil.log); // output build logs to terminal

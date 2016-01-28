@@ -1,20 +1,18 @@
-// Collection.js
+// MonstersCollection.js
 // -------------
-define(["jquery","backbone","models/Model"],
+import {Collection} from 'backbone';
+import CharacterModel from '../models/CharacterModel';
 
-    function($, Backbone, Model) {
+// Creates a new Backbone Collection class object
+export default class MonsterCollection extends Collection{
+    constructor(){
+        // Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
+        this.model = CharacterModel
+    }
 
-        // Creates a new Backbone Collection class object
-        var Monsters = Backbone.Collection.extend({
-
-            // Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
-            model: Model
-
-        });
-
-        // Returns the Model class
-        return Monsters;
+    // Model Constructor
+    initialize() {
 
     }
 
-);
+};
