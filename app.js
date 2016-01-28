@@ -1,6 +1,6 @@
 //Express and its middlewares
 var express = require('express');
-var session = require('express-session')
+var session = require('express-session');
 var errorHandler = require('errorhandler');
 var favicon = require('serve-favicon');
 var multer = require('multer');
@@ -28,7 +28,7 @@ var app = express();
 app.use(log4js.connectLogger(logger, { level: log4js.levels.DEBUG }));
 // all environments
 app.set('port', process.env.PORT ||5000);
-app.set('views', __dirname + '/src/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/favicon.png'));
 //app.use(logger('dev'));
