@@ -1,3 +1,4 @@
+import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /*
 
  CREATE TABLE messages (
@@ -8,7 +9,31 @@
  );
 
  */
+const Message = sequelize.describe('message',
+    {
+        uuid:{
+            type:   Sequelize.UUID,
+            validate:{
+                notNull:true,
+                isUUID:4
+            }
+        },
+        states: {
+            type:   Sequelize.ENUM,
+            values: ['unread', 'read', 'deleted']
+        },
+        content:{
+            type:Sequelize.STRING,
+            validate
+        }
+    },
+    {
+        associate : (models)=>{
 
-exports.message = function Message(sequelize, DataTypes) {
-
-};
+            Message.hasOne(models.Instance,{as:'instance'});
+            Message.hasOne(models.Player,{as:'sender'});
+            Message.hasMany(models.Player,{as:'receiver'});
+        }
+    }
+);
+export default Message;

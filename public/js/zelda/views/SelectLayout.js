@@ -1,3 +1,3 @@
-import Player from '../models/Player';
-import Game from '../models/Game';
-import SelectView from '../views/SelectView';
+import Player from '../models/PlayerModel';
+import Game from '../models/GameModel';
+import MenuView from '../views/MenuView';

@@ -2,12 +2,12 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
 import Handlebars from 'handlebars';
-import Phaser from 'phaser';
+import PIXI from 'pixi.js';
 import GameRouter from './zelda/routers/GameRouter';
 Backbone.$ = $;
 
 
-(function( $, Phaser, Backbone, GameRouter) {
+(function( $, PIXI, Backbone, GameRouter) {
         "use strict";
         var Zelda = {
             Models:[],
@@ -19,4 +19,4 @@ Backbone.$ = $;
         Backbone.history.start();
         window.Zelda = Zelda;
         return Zelda;
-})($,  Phaser, Backbone, GameRouter);
+})($,  PIXI, Backbone, GameRouter);

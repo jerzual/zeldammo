@@ -5,15 +5,17 @@
 import $ from 'jquery';
 
 import Backbone from 'backbone';
-import Model from '../models/Model';
-import template from 'text!templates/heading.html';
+import PlayerModel from '../models/PlayerModel';
+import GameCollections from '../collections/GameCollection';
+import gameTemplate from '../templates/game.hbs';
 
 export default class GameView extends Backbone.View{
 
     constructor(){
-
+        super(options);
         // The DOM Element associated with this view
-        this.el = ".example";
+        this.el = "#zeldammo";
+        this.template = gameTemplate;
     }
 
     // View constructor

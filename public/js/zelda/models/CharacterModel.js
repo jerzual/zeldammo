@@ -12,7 +12,7 @@ import {Model} from 'backbone';
 // Creates a new Backbone Model class object
 export default class CharacterModel extends Model{
     constructor(){
-
+        super();
     }
 
     // Model Constructor

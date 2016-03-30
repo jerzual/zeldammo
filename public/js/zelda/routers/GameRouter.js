@@ -1,6 +1,9 @@
 // DesktopRouter.js
 // ----------------
 import Backbone, {Router} from 'backbone';
+import GameModel from '../models/GameModel';
+import GameView from '../views/GameView';
+import MenuView from '../views/MenuView';
 
 export default class GameRouter extends Router{
 
@@ -21,7 +24,8 @@ export default class GameRouter extends Router{
     index() {
 
         // Instantiates a new view which will render the header text to the page
-        new View();
+        new GameView();
+        new MenuView();
 
     }
 

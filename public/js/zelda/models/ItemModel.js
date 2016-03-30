@@ -1,11 +1,11 @@
-// Model.js
+// ItemModel.js
 // --------
 import {Model} from 'backbone';
 
 // Creates a new Backbone Model class object
-export default class ZeldaModel extends Model{
+export default class ItemModel extends Model{
     constructor(){
-
+        super();
     }
 
     // Model Constructor

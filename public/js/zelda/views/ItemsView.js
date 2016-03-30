@@ -4,11 +4,14 @@ import $ from 'jquery';
 
 import Backbone from 'backbone';
 import Item from '../models/ItemModel';
+import itemsTemplate from '../templates/items.hbs';
 
 export default class ItemsView extends Backbone.View{
     constructor(){
+        super(options);
         // The DOM Element associated with this view
-        this.el = ".example"
+        this.el = ".example";
+        this.template = itemsTemplate();
     }
 
     // View constructor
@@ -38,5 +41,5 @@ export default class ItemsView extends Backbone.View{
 
     }
 
-    };
+};
 

@@ -1,4 +1,4 @@
-import PIXI from 'pixi';
+import PIXI from 'pixi.js';
 // create an new instance of a pixi stage
 var stage = new PIXI.Stage(0x66FF99);
 

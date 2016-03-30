@@ -6,7 +6,7 @@ import {Model} from 'backbone';
 
 export default class PlayerModel extends Model{
     constructor(){
-
+        super();
     }
     // Model Constructor
     initialize() {
