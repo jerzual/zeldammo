@@ -1,4 +1,4 @@
-var staticCache = require('koa-static-cache');
+var serve = require('koa-static');
 var koa = require('koa.io');
 var routes = require('koa-route');
 var responseTime = require('koa-response-time');
@@ -6,20 +6,27 @@ var logger = require('koa-logger');
 var compress = require('koa-compress');
 var mount = require('koa-mount');
 var favicon = require('koa-favicon');
+var views = require('koa-views');
 var path = require('path');
 var fs = require('fs');
 
 var app = koa();
 
 var port = process.env.PORT || 3000;
-
 // Routing
-app.use(staticCache(path.join(__dirname, 'public')));
+app.use(serve(path.join(__dirname, '/../public')));
 
-app.use(function*() {
-    this.body = fs.createReadStream(path.join(__dirname, 'public/index.html'));
-    this.type = 'html';
-});
+app.use(favicon());
+app.use(logger());
+app.use(responseTime());
+app.use(compress());
+
+app.use(views(__dirname + '/views', {extension: 'jade'}));
+
+function *index() {
+    yield this.render('index');
+};
+app.use(mount('/',index));
 
 app.listen(port, function () {
     console.log('Server listening at port %d', port);

@@ -1,12 +1,11 @@
-//
-export default function(sequelize, DataTypes) {
+import sequelize , {Sequelize, DataTypes} from 'sequelize';
+
     const Zone = sequelize.define('Zone', {
         name: DataTypes.STRING
     }, {
         associate: (models) => {
-            Zone.hasMany(models.User);
+            Zone.hasMany(models.Tile,{as:'tiles'});
         }
     });
 
-    return Zone;
-};
+    export default Zone;

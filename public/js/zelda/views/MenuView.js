@@ -1,16 +1,26 @@
-import {View} from 'backbone';
+import Backbone from 'backbone';
+import menuTemplate from '../templates/menu.hbs';
 
-export default class MenuView{
-    constructor(){
+export default
+class MenuView extends Backbone.View{
+    constructor(options) {
+        super(options);
+    }
+
+    initialize() {
+        this.entries = [{"start": "newGame", "quit": "quitGame"}]
+    }
+
+    render() {
 
     }
-    initialize(){
 
-    }
-    render(){
-
-    }
-    events(){
-
+    events() {
+return {
+    "click .start":"newGame",
+    "click .quit":"quit",
+    "click .options":"showOptions",
+    "click .select":"selectMenu"
+}
     }
 }

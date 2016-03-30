@@ -9,6 +9,6 @@ import {Model} from 'backbone';
 
 export default class SpriteModel extends Model{
     constructor(){
-
+        super();
     }
 }

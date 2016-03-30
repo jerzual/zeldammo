@@ -12,14 +12,18 @@ CREATE TABLE users (
 
 */
 
-module.exports = function(sequelize, DataTypes) {
-    var User = sequelize.define('User', {
+import sequelize, { DataTypes} from 'sequelize';
+const Enemy = sequelize.define('enemy',
+    {
+        uuid:{
+            type:Sequelize.UUID,
+            primaryKey:true
+        },
         name: DataTypes.STRING
     }, {
         associate: function(models) {
-            User.hasMany(models.Post);
+            Enemy.belongsTo(models.Tile);
         }
     });
 
-    return User;
-};
+export default Enemy;

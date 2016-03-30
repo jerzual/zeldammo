@@ -1,16 +1,21 @@
+import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /*
- * Friends associate two user together, it can also be used as a way to send invitations for the private beta.
+ * Guilds associate users together, it can also be used as a way to send invitations for the private beta.
  *
  *
  */
-module.exports = function(sequelize, DataTypes) {
-    var Guild = sequelize.define('Guild', {
-        title: DataTypes.STRING
-    }, {
-        associate: function(models) {
-            Guild.belongsTo(models.User);
-        }
-    });
 
-    return Post;
-}
+const Guild = sequelize.define(
+    'guild',
+    {
+        title: DataTypes.STRING
+    },
+    {
+        associate: function(models) {
+            Guild.belongsTo(models.Player,{as:'founder'});
+            Guild.hasMany(models.Players,{as:'members'})
+        }
+    }
+);
+
+export default Guild;
