@@ -15,8 +15,8 @@ restifier.restify( router, Player );
 //   DELETE /jobs/:id
 restifier.restify( router, Message );
 
-app.use( router.routes() )
+app.use( router.routes() );
 
 app.listen( 8888, function(){
-    console.log( 'App is listening' )
+    console.log( 'App is listening' );
 });

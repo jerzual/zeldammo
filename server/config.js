@@ -7,7 +7,7 @@ exports.config = {
     url: "https://zeldammo.herokuapp.com/",
     db:{
         DB_HOST:process.env.ZDB_HOST,
-        DB_PASS:process.env.ZDB_HOST,
+        DB_PASS:process.env.ZDB_PASS,
         DB_DIALECT:process.env.ZDB_DIALECT
     }
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 var watchify = require('watchify');
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -13,17 +11,19 @@ var config = require('../config');
 var connect = require('gulp-connect');
 var assign = require('lodash').assign;
 
-
-    // set up the browserify instance on a task basis
-    var browserifyOptions = {
-        entries: [config.src + '/js/zelda.js'],
-        debug: true
-    };
+// set up the browserify instance on a task basis
+var browserifyOptions = {
+    entries: [config.src + '/js/zelda.js'],
+    debug: true
+};
 var opts = assign({}, watchify.args, browserifyOptions);
 var bro = watchify(browserify(opts));
-bro.transform("browserify-shim").transform("browserify-handlebars").transform("babelify", {presets: ["es2015", "react"]});
+
 function bundle() {
-    return bro.bundle()
+    return bro
+        .transform('browserify-shim').transform('browserify-handlebars')
+        .transform(babelify)
+        .bundle()
         // log errors if they happen
         .on('error', gutil.log.bind(gutil, 'Browserify Error'))
         .pipe(source('zelda.min.js'))

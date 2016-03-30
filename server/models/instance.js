@@ -5,6 +5,7 @@ import sequelize , {Sequelize, DataTypes} from 'sequelize';
  */
 const Instance = sequelize.describe(
     'instance',
+    //fields
     {
         uuid: {
             type: DataTypes.UUID,
@@ -17,6 +18,7 @@ const Instance = sequelize.describe(
         players:[],
         zone:{}
     }
+    //options
     , {
 
     }

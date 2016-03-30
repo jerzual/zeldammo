@@ -6,7 +6,7 @@ CREATE TABLE shares (
   post_id VARCHAR(255),
   created_at DATETIME,
   updated_at DATETIME,
-  user_id INTEGER UNSIGNED 
+  user_id INTEGER UNSIGNED
 );
 
 */
@@ -17,7 +17,7 @@ const Player = sequelize.define(
         type:DataTypes.STRING
 
     },
-    key:{
+    uuid:{
         type:DataTypes.UUID,
         allowNull:false
     },
