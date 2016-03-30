@@ -3,14 +3,28 @@
  *
  *
  */
-module.exports = function(sequelize, DataTypes) {
-    var Guild = sequelize.define('Guild', {
-        title: DataTypes.STRING
-    }, {
-        associate: function(models) {
-            Guild.belongsTo(models.User);
+module.exports = function (sequelize, DataTypes) {
+    var Guild = sequelize.define(
+        //model name
+        'Guild',
+        //fiels and data types
+        {
+            uuid: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true
+            },
+            title: DataTypes.STRING
+        },
+        //associations and config
+        {
+            comment:'a guild is a team of players with a creator and a capital of money',
+            associate: function (models) {
+                Guild.belongsTo(models.User);
+                Guild.hasMany(models.User);
+            }
         }
-    });
+    );
 
-    return Post;
-}
+    return Guild;
+};
