@@ -21,7 +21,8 @@ var bro = watchify(browserify(opts));
 
 function bundle() {
     return bro
-        .transform('browserify-shim').transform('browserify-handlebars')
+        .transform('browserify-shim')
+        .transform('browserify-handlebars')
         .transform(babelify)
         .bundle()
         // log errors if they happen
@@ -38,5 +39,5 @@ function bundle() {
 }
 
 gulp.task('browserify', bundle);
-bro.on('update', bundle); // on any dep update, runs the bundler
+//bro.on('update', bundle); // on any dep update, runs the bundler
 bro.on('log', gutil.log); // output build logs to terminal

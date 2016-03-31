@@ -3,6 +3,7 @@
 import $ from 'jquery';
 
 import Backbone from 'backbone';
+import _ from 'lodash';
 import Item from '../models/ItemModel';
 import itemsTemplate from '../templates/items.hbs';
 
@@ -31,10 +32,10 @@ export default class ItemsView extends Backbone.View{
     render() {
 
         // Setting the view's template property using the Underscore template method
-        this.template = _.template(template, {});
+        //this.template = _.template(template, {});
 
         // Dynamically updates the UI with the view's template
-        this.$el.html(this.template);
+        this.$el.html(itemsTemplate());
 
         // Maintains chainability
         return this;
