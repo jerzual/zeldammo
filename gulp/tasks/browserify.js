@@ -20,9 +20,11 @@ var browserifyOptions = {
 };
 var opts = assign({}, watchify.args, browserifyOptions);
 var bro = watchify(browserify(opts));
-bro.transform("browserify-shim").transform("browserify-handlebars").transform("babelify", {presets: ["es2015", "react"]});
+
 function bundle() {
     return bro
+        .transform('browserify-shim')
+        .transform('browserify-handlebars')
         .transform(babelify)
         .bundle()
         // log errors if they happen
@@ -39,5 +41,5 @@ function bundle() {
 }
 
 gulp.task('browserify', bundle);
-bro.on('update', bundle); // on any dep update, runs the bundler
+//bro.on('update', bundle); // on any dep update, runs the bundler
 bro.on('log', gutil.log); // output build logs to terminal
