@@ -4,10 +4,11 @@ import $ from 'jquery';
 
 import Backbone from 'backbone';
 import Item from '../models/ItemModel';
+import ItemCollection from '../collections/ItemCollection';
 import itemsTemplate from '../templates/items.hbs';
 
 export default class ItemsView extends Backbone.View{
-    constructor(){
+    constructor(options){
         super(options);
         // The DOM Element associated with this view
         this.el = ".example";
@@ -17,6 +18,7 @@ export default class ItemsView extends Backbone.View{
     // View constructor
     initialize() {
 
+        this.collection = new ItemCollection();
         // Calls the view's render method
         this.render();
 
@@ -24,7 +26,10 @@ export default class ItemsView extends Backbone.View{
 
     // View Event Handlers
     events() {
-
+      return {
+        'click .item':'itemSelect',
+        'click .close':'viewClose'
+      };
     }
 
     // Renders the view's template to the UI
@@ -41,5 +46,4 @@ export default class ItemsView extends Backbone.View{
 
     }
 
-};
-
+}

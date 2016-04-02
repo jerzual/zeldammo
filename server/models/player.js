@@ -11,7 +11,9 @@ CREATE TABLE shares (
 
 */
 const Player = sequelize.define(
+    //name
     'player',
+    //fields
     {
     name:{
         type:DataTypes.STRING
@@ -30,11 +32,12 @@ const Player = sequelize.define(
         type:DataTypes.STRING
     }
 },
+//options
     {
         associate: function(models) {
             Player.belongsTo(models.Guild);
-            Player.hasMany(models.Item)
-            Player.belongsTo(models.Instance)
+            Player.hasMany(models.Item);
+            Player.belongsTo(models.Instance);
         }
     }
 );

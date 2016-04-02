@@ -7,7 +7,7 @@ import PlayerModel from '../models/PlayerModel';
 export default class PlayerCollection extends Collection{
     constructor(){
         // Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
-        this.model = PlayerModel
+        this.model = PlayerModel;
     }
 
     // Model Constructor
@@ -15,4 +15,4 @@ export default class PlayerCollection extends Collection{
 
     }
 
-};
+}
