@@ -3,7 +3,7 @@
 // GameView.js
 // -------
 import $ from 'jquery';
-
+import {bindAll} from 'lodash';
 import Backbone from 'backbone';
 import PlayerModel from '../models/PlayerModel';
 import GameCollections from '../collections/GameCollection';
@@ -20,7 +20,8 @@ export default class GameView extends Backbone.View{
 
     // View constructor
     initialize(){
-
+      _.bindAll(this, 'onKeypress');
+      $(document).bind('keypress', this.onKeypress);
         // Calls the view's render method
         this.render();
 
@@ -44,7 +45,9 @@ export default class GameView extends Backbone.View{
         return this;
 
     }
+    onKeypress(){
 
+    }
 }
 
 

@@ -8,7 +8,9 @@ class MenuView extends Backbone.View{
     }
 
     initialize() {
-        this.entries = [{"start": "newGame", "quit": "quitGame"}]
+        this.entries = [
+          {"start": "newGame", "quit": "quitGame"}
+        ];
     }
 
     render() {
@@ -21,6 +23,6 @@ return {
     "click .quit":"quit",
     "click .options":"showOptions",
     "click .select":"selectMenu"
-}
+};
     }
 }

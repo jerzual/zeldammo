@@ -7,7 +7,7 @@ import ItemModel from '../models/ItemModel';
 export default class ItemCollection extends Collection{
     constructor(){
         // Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
-        this.model = ItemModel
+        this.model = ItemModel;
     }
 
     // Model Constructor
@@ -15,4 +15,4 @@ export default class ItemCollection extends Collection{
 
     }
 
-};
+}

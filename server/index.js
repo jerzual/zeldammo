@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 
 // Jade templates.
 const jade = new Jade({
-    viewPath: './server/views',
+    viewPath: __dirname + '/views',
     pretty: false,
     debug: process.env.NODE_ENV === 'development'
 });
@@ -32,8 +32,10 @@ app.use(favicon(__dirname + '../public/favicon.ico'));
 app.use(staticCache(path.join(__dirname, '../public')));
 
 // Index page.
-app.use(function* indexRenderer(){
-    this.render('index',{title:'ZeldaMMO'}, true);
+app.use(function* indexRenderer(next){
+  yield next;
+  if(this.path !== '/') return;
+  this.render('index',{title:'ZeldaMMO'}, true);
 });
 
 app.listen(port, function appListenerCallback() {
