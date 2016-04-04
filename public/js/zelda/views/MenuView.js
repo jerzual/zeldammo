@@ -18,11 +18,11 @@ class MenuView extends Backbone.View{
     }
 
     events() {
-return {
-    "click .start":"newGame",
-    "click .quit":"quit",
-    "click .options":"showOptions",
-    "click .select":"selectMenu"
-};
+        return {
+            "click .start":"newGame",
+            "click .quit":"quit",
+            "click .options":"showOptions",
+            "click .select":"selectMenu"
+        };
     }
 }

@@ -9,6 +9,6 @@ import SpriteModel from 'models/SpriteModel';
 import GameView from 'views/GameView';
 import ItemsView from 'views/StartLayout';
 import SelectView from 'views/SelectLayout';
-import Collection from 'collections/GameCollection';
+import TilesCollection from 'collections/TilesCollection';
 
 import GameRouter from 'routers/GameRouter';
