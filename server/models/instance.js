@@ -1,9 +1,8 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /**
  * Instance is a collection of zones, where players are active.
  *
  */
-const Instance = sequelize.describe(
+export default (sequelize, DataTypes) => Instance = sequelize.describe(
     'instance',
     {
         uuid: {
@@ -18,6 +17,8 @@ const Instance = sequelize.describe(
         zone:{}
     }
     , {
-
+      associate(){
+        
+      }
     }
 );

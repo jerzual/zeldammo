@@ -1,13 +1,10 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /*
  * Guilds associate users together, it can also be used as a way to send invitations for the private beta.
  *
  *
  */
-module.exports = function (sequelize, DataTypes) {
-    var Guild = sequelize.define(
-        //model name
-        'Guild',
+export default (sequelize, DataTypes) => Guild = sequelize.define(
+    'guild',
         //fiels and data types
         {
             uuid: {

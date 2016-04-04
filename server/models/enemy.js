@@ -10,30 +10,23 @@
  );
 
  */
-
-module.exports = function (sequelize, DataTypes) {
-    var User = sequelize.define(
-        //model name
-        'User',
-        //fields
-        {
-            uuid: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
-                primaryKey: true
-            },
-            username: DataTypes.STRING,
-            password: DataTypes.STRING,
-            facebook_id: DataTypes.STRING,
-            twitter_id: DataTypes.STRING,
-            google_id: DataTypes.STRING
+const Enemy = sequelize.define(
+  //model name
+   'enemy',
+   //fields
+    {
+        uuid:{
+            type:Sequelize.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey:true
         },
-        //associations and other config
-        {
-            associate: function (models) {
-                User.hasMany(models.Post);
-            }
+        name: DataTypes.STRING
+    },
+     {
+        associate: function(models) {
+            Enemy.belongsTo(models.Tile);
         }
+      }
     );
 
-export default Enemy;
+    export default (sequelize, DataTypes) => Enemy;

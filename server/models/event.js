@@ -1,9 +1,8 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /**
  * A table to record game events
  */
 
-const Event = sequelize.define(
+export default (sequelize, DataTypes) => Event = sequelize.define(
     'event',
     {
         uuid: {
@@ -35,5 +34,3 @@ const Event = sequelize.define(
         }
     }
 );
-
-export default Event;

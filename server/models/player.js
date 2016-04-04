@@ -1,16 +1,4 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
-/*
-
-CREATE TABLE shares (
-  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  post_id VARCHAR(255),
-  created_at DATETIME,
-  updated_at DATETIME,
-  user_id INTEGER UNSIGNED 
-);
-
-*/
-const Player = sequelize.define(
+export default (sequelize, DataTypes) => Player = sequelize.define(
     //name
     'player',
     //fields
@@ -41,4 +29,3 @@ const Player = sequelize.define(
         }
     }
 );
-export default Player;

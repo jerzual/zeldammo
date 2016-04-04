@@ -1,11 +1,11 @@
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const less = require('gulp-less');
+const sass = require('gulp-sass');
 const config = require('../config');
 
-gulp.task('less', () => {
-    gulp.src(config.src+'less/*.less')
-        .pipe(less())
+gulp.task('sass', () => {
+    gulp.src(config.src+'styles/*.scss')
+        .pipe(sass())
         .pipe(gulp.dest(config.dest + '/css'))
         .pipe(connect.reload());
 });

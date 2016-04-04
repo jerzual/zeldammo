@@ -1,11 +1,22 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
-
-const Biome = sequelize.define('Biome', {
+import Sequelize from 'sequelize';
+import Table from '../engine/table';
+class Biome extends Table{
+  //table name
+   constructor(){
+     super({name:'Biome'});
+   }
+  //fields
+  get fields(){
+    return  {
     name: DataTypes.STRING
-}, {
+  };
+}
+//options
+get options(){
     associate: (models) => {
-        Biome.hasMany(models.Zone,{as:'zones'});
+        models.Biome.hasMany(models.Zone,{as:'zones'});
     }
-});
+};
+}
 
-export default Zone;
+export default Biome;

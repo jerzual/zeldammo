@@ -1,7 +1,8 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
-
-const Tile = sequelize.define(
-    'tile', {
+module.exports =  (sequelize, DataTypes) => Tile = sequelize.define(
+  //table name
+    'tile',
+    //fields
+    {
         uuid: {
             type: DataTypes.UUID,
             primaryKey: true
@@ -34,11 +35,12 @@ const Tile = sequelize.define(
         normalMap: {
             type: DataTypes.BLOB
         }
-    }, {
+    },
+    //options
+    {
         associate: (models) => {
             Tile.hasOne(models.Tile, {as: 'destination'})
             Zone.hasMany(models.Tile, {as: 'tiles'});
         }
-    });
-
-export default Zone;
+    }
+  );

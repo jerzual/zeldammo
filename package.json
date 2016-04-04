@@ -8,7 +8,19 @@
     "url": "git://github.com/jerzual/zeldammo.git"
   },
   "scripts": {
-    "start": "node server"
+    "postinstall": "gulp build",
+    "start": "node server/index.js",
+    "test": "mocha --compilers js:babel-register ./tests/**/*.spec.js"
+  },
+  "browserify-shim": {
+    "pixi.js": "pixi"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "browserify-handlebars",
+      "babelify"
+    ]
   },
   "dependencies": {
     "backbone": "^1.2.3",
@@ -44,7 +56,6 @@
     "passport-twitter": "^1.0.4",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
-    "phaser": "^2.4.6",
     "pixi.js": "^3.0.10",
     "restify": "^4.0.4",
     "sequelize": "^3.9.0",
@@ -66,6 +77,7 @@
     "gulp-minify-css": "^1.2.1",
     "gulp-mocha": "^2.2.0",
     "gulp-rollup": "^1.8.0",
+    "gulp-sass": "^2.2.0",
     "gulp-sequence": "^0.4.1",
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
@@ -78,12 +90,12 @@
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha": "^0.2.1",
     "karma-mocha-reporter": "^1.1.5",
+    "koa-static-cache": "^3.1.6",
     "mocha": "^2.3.2",
     "require-dir": "^0.3.0",
-    "rollup-plugin-babel": "^2.4.0",
-    "rollup-plugin-npm": "^1.4.0",
     "sinon": "^1.16.1",
     "sqlite3": "^3.1.1",
+    "supertest": "^1.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
