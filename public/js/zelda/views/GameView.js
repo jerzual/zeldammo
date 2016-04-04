@@ -7,7 +7,7 @@ import {bindAll} from 'lodash';
 import Backbone from 'backbone';
 import _ from 'lodash';
 import PlayerModel from '../models/PlayerModel';
-import GameCollections from '../collections/GameCollection';
+import TilesCollections from '../collections/TilesCollection';
 import gameTemplate from '../templates/game.hbs';
 
 export default class GameView extends Backbone.View{
