@@ -1,5 +1,8 @@
-module.exports = function (sequelize, DataTypes) {
-    var User = sequelize.define(
+
+import Sequelize from 'sequelize';
+
+module.exports =  (sequelize, DataTypes) => {
+    return User = sequelize.define(
         //model name
         'User',
         //fields
@@ -22,3 +25,4 @@ module.exports = function (sequelize, DataTypes) {
             }
         }
     );
+  };

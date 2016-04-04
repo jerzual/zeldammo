@@ -10,8 +10,6 @@
  );
 
  */
-
-import sequelize, { DataTypes} from 'sequelize';
 const Enemy = sequelize.define(
   //model name
    'enemy',
@@ -23,10 +21,12 @@ const Enemy = sequelize.define(
             primaryKey:true
         },
         name: DataTypes.STRING
-    }, {
+    },
+     {
         associate: function(models) {
             Enemy.belongsTo(models.Tile);
         }
+      }
     );
 
-export default Enemy;
+    export default (sequelize, DataTypes) => Enemy;

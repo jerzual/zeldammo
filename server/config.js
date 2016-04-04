@@ -1,4 +1,4 @@
-exports.config = {
+exports.config = function(){return {
     auth:{
       facebook: {
           appID: process.env.ZM_FB_APP_ID,
@@ -11,4 +11,5 @@ exports.config = {
         DB_PASS:process.env.ZM_DB_PASS,
         DB_DIALECT:process.env.ZDB_DIALECT
     }
+  };
 };

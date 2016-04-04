@@ -1,11 +1,9 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
 /*
  * Guilds associate users together, it can also be used as a way to send invitations for the private beta.
  *
  *
  */
-
-const Guild = sequelize.define(
+export default (sequelize, DataTypes) => Guild = sequelize.define(
     'guild',
         //fiels and data types
         {

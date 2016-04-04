@@ -1,15 +1,7 @@
-import sequelize , {Sequelize, DataTypes} from 'sequelize';
-/*
-
- CREATE TABLE messages (
- id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
- created_at DATETIME,
- updated_at DATETIME,
- user_id INTEGER UNSIGNED
- );
-
- */
-const Message = sequelize.describe('message',
+export default (sequelize, DataTypes) => Message = sequelize.describe(
+  //table name
+  'message',
+  //fields
     {
         uuid:{
             type:   Sequelize.UUID,
@@ -27,6 +19,7 @@ const Message = sequelize.describe('message',
             validate
         }
     },
+    //options
     {
         associate : (models)=>{
 
@@ -36,4 +29,3 @@ const Message = sequelize.describe('message',
         }
     }
 );
-export default Message;

@@ -1,5 +1,5 @@
 //
-export default function (sequelize, DataTypes) {
+export default (sequelize, DataTypes) => {
     const Zone = sequelize.define(
         //model name
         'Zone',
@@ -21,4 +21,3 @@ export default function (sequelize, DataTypes) {
 
 return Zone;
  }
-    export default Zone;

@@ -1,6 +1,8 @@
 export default class Movement{
-    constructor() {
+    constructor(entity, direction) {
 
     }
-
+    move(entity,direction){
+      return this;
+    }
 }

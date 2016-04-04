@@ -1,6 +1,6 @@
-var gulp = require('gulp');
-var connect = require('gulp-connect');
-var config = require('../config');
+const gulp = require('gulp');
+const connect = require('gulp-connect');
+const config = require('../config');
 
 gulp.task('serve', function() {
     connect.server({
