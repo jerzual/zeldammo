@@ -1,17 +1,17 @@
 import initialize from '../db/initTestDB';
 import Sequelize from 'sequelize';
 import {assert} from 'chai';
-import User from '../../server/models/user';
+import {User} from '../../server/models/';
 
-describe('User',()=>{
-const db = initialize();
-  let user;
+describe('User', ()=> {
+    const db = initialize();
+    let user;
 
-  beforeEach(()=>{
+    beforeEach(()=> {
+        user = User.create();
+    });
+    it('is instanciable', ()=> {
 
-    user = new User(db.sequelize, Sequelize);
-  })
-  it('is instanciable',()=>{
-    assert.isOk(user);
-  })
-})
+        assert.isOk(user);
+    })
+});
