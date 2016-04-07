@@ -3,14 +3,14 @@ import Sequelize from 'sequelize';
 import {assert} from 'chai';
 import Zone from '../../server/models/zone';
 
-describe('Zone',()=>{
+describe('Zone Model',()=>{
   let zone;
   const db = initialize();
   beforeEach(()=>{
     console.log(db);
     zone = new Zone(db.sequelize, Sequelize);
-  })
+  });
   it('is instanciable',()=>{
     assert.isOk(zone);
-  })
-})
+  });
+});
