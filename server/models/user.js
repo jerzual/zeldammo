@@ -1,8 +1,7 @@
+//import Sequelize from 'sequelize';
 
-import Sequelize from 'sequelize';
-
-module.exports =  (sequelize, DataTypes) => {
-    return User = sequelize.define(
+export default (sequelize, DataTypes) =>
+    sequelize.define(
         //model name
         'User',
         //fields
@@ -21,8 +20,8 @@ module.exports =  (sequelize, DataTypes) => {
         //associations and other config
         {
             associate: function (models) {
-                User.hasMany(models.Post);
+                models.User.hasMany(models.Post);
             }
         }
     );
-  };
+

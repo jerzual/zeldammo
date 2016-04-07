@@ -10,23 +10,21 @@
  );
 
  */
-const Enemy = sequelize.define(
-  //model name
-   'enemy',
-   //fields
+export default (sequelize, DataTypes) => sequelize.define(
+    //model name
+    'enemy',
+    //fields
     {
         uuid:{
-            type:Sequelize.UUID,
+            type:DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey:true
         },
         name: DataTypes.STRING
     },
-     {
+    {
         associate: function(models) {
             Enemy.belongsTo(models.Tile);
         }
-      }
-    );
-
-    export default (sequelize, DataTypes) => Enemy;
+    }
+);

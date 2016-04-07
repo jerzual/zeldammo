@@ -1,16 +1,17 @@
 /**
  * A table to record game events
  */
-
-export default (sequelize, DataTypes) => Event = sequelize.define(
+export default (sequelize, DataTypes) => sequelize.define(
     'event',
     {
         uuid: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
         type: {
-            states: [
+            type: DataTypes.ENUM,
+            values: [
                 'item-drop',
                 'item-pickup',
                 'entity-hit',
@@ -29,8 +30,8 @@ export default (sequelize, DataTypes) => Event = sequelize.define(
     },
     {
         associate: (models)=> {
-            Event.hasOne(models.Entity, {as: source});
-            Event.hasOne(models.Instance, {as: instance});
+            //models.Event.hasOne(models.Entity, {as: source});
+            models.Event.hasOne(models.Instance, {as: instance});
         }
     }
 );

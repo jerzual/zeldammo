@@ -1,16 +1,17 @@
-module.exports =  (sequelize, DataTypes) => Tile = sequelize.define(
-  //table name
-    'tile',
+export default (sequelize, DataTypes) => sequelize.define(
+    //table name
+    'Tile',
     //fields
     {
         uuid: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
         texture: DataTypes.STRING,
         type: {
             type: DataTypes.ENUM,
-            states: [
+            values: [
                 'destructible',
                 'movable',
                 'chest',
@@ -39,8 +40,8 @@ module.exports =  (sequelize, DataTypes) => Tile = sequelize.define(
     //options
     {
         associate: (models) => {
-            Tile.hasOne(models.Tile, {as: 'destination'})
-            Zone.hasMany(models.Tile, {as: 'tiles'});
+            models.Tile.hasOne(models.Tile, {as: 'destination'})
+            models.Zone.hasMany(models.Tile, {as: 'tiles'});
         }
     }
   );
