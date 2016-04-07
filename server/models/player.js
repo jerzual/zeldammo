@@ -1,31 +1,32 @@
-export default (sequelize, DataTypes) => Player = sequelize.define(
+export default (sequelize, DataTypes) => sequelize.define(
     //name
     'player',
     //fields
     {
-    name:{
-        type:DataTypes.STRING
+        name:{
+            type:DataTypes.STRING
 
-    },
-    key:{
-        type:DataTypes.UUID,
-        allowNull:false
-    },
-    token:{
+        },
+        uuid:{
+            type:DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull:false
+        },
+        token:{
 
-        type:DataTypes.STRING
-    },
-    login:{
+            type:DataTypes.STRING
+        },
+        login:{
 
-        type:DataTypes.STRING
-    }
-},
+            type:DataTypes.STRING
+        }
+    },
 //options
     {
         associate: function(models) {
-            Player.belongsTo(models.Guild);
-            Player.hasMany(models.Item);
-            Player.belongsTo(models.Instance);
+            models.Player.belongsTo(models.Guild);
+            models.Player.hasMany(models.Item);
+            models.Player.belongsTo(models.Instance);
         }
     }
 );

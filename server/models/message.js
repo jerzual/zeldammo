@@ -1,31 +1,31 @@
-export default (sequelize, DataTypes) => Message = sequelize.describe(
-  //table name
-  'message',
-  //fields
+export default (sequelize, DataTypes) => sequelize.define(
+    //table name
+    'Message',
+    //fields
     {
         uuid:{
-            type:   Sequelize.UUID,
+            type:   DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             validate:{
                 notNull:true,
                 isUUID:4
             }
         },
         states: {
-            type:   Sequelize.ENUM,
+            type:   DataTypes.ENUM,
             values: ['unread', 'read', 'deleted']
         },
         content:{
-            type:Sequelize.STRING,
-            validate
+            type:DataTypes.STRING
         }
     },
     //options
     {
         associate : (models)=>{
 
-            Message.hasOne(models.Instance,{as:'instance'});
-            Message.hasOne(models.Player,{as:'sender'});
-            Message.hasMany(models.Player,{as:'receiver'});
+            models.Message.hasOne(models.Instance,{as:'instance'});
+            models.Message.hasOne(models.Player,{as:'sender'});
+            models.Message.hasMany(models.Player,{as:'receiver'});
         }
     }
 );

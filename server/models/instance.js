@@ -2,22 +2,24 @@
  * Instance is a collection of zones, where players are active.
  *
  */
-export default (sequelize, DataTypes) => Instance = sequelize.describe(
-    'instance',
+export default (sequelize, DataTypes) => sequelize.define(
+    //name
+    'Instance',
+    //fields
     {
         uuid: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey:true
         },
         states: {
-            type: Sequelize.ENUM,
+            type: DataTypes.ENUM,
             values: ['active', 'empty', 'deleted']
-        },
-        players:[],
-        zone:{}
-    }
-    , {
-      associate(){
+        }
+    },
+    //options
+    {
+      associate(models){
         
       }
     }

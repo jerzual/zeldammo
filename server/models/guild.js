@@ -3,26 +3,24 @@
  *
  *
  */
-export default (sequelize, DataTypes) => Guild = sequelize.define(
+export default (sequelize, DataTypes) => sequelize.define(
     'guild',
-        //fiels and data types
-        {
-            uuid: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
-                primaryKey: true
-            },
-            title: DataTypes.STRING
+    //fiels and data types
+    {
+        uuid: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true
         },
-        //associations and config
-        {
-            comment:'a guild is a team of players with a creator and a capital of money',
-            associate: function (models) {
-                Guild.belongsTo(models.User);
-                Guild.hasMany(models.User);
-            }
-        }
-    );
+        title: DataTypes.STRING
+    },
+    //associations and config
+    {
+        comment: 'a guild is a team of players with a creator and a capital of money',
 
-    return Guild;
-};
+        associate: function (models) {
+            models.Guild.belongsTo(models.Player, {as: 'founder'});
+            models.Guild.hasMany(models.Player, {as: 'members'});
+        }
+    }
+);
