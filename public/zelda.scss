@@ -1,0 +1,44 @@
+@import "./scss/variables.scss";
+
+body {
+  background-color: $baseColor;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+//layouts
+#gamescreen {
+  #tiles {
+  }
+  #sprites {
+  }
+}
+
+.tile {
+  &.decor {
+  }
+  &.wall {
+  }
+  &.door {
+  }
+  &.door {
+  }
+  &.destr {
+  }
+}
+
+#interface {
+  #hands {
+  }
+  #status {
+  }
+}
+
+#inventory {
+  #items {
+  }
+  #progress {
+  }
+}
