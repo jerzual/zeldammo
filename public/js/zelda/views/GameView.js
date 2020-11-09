@@ -52,4 +52,3 @@ export default class GameView extends Backbone.View{
 }
 
 
-export default GameView;
