@@ -20,8 +20,8 @@ var server, app;
 
 
 app = server = restify.createServer()
-app.use(restify.queryParser());
-app.use(restify.bodyParser());
+//app.use(restify.queryParser());
+//app.use(restify.bodyParser());
 
 
 // Initialize epilogue
