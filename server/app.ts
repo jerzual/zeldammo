@@ -5,7 +5,7 @@ import { join } from "path";
 import { createServer } from "http";
 import { Server } from "@colyseus/core";
 import { WebSocketTransport } from "@colyseus/ws-transport"
-const port = Number(process.env.port) || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 // express main app
 const app = new express();
