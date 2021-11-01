@@ -1,11 +1,6 @@
-import $ from 'jquery';
-import Backbone from 'backbone';
-import _ from 'lodash';
+
 import * as PIXI from 'pixi.js'
 import IO from 'socket.io-client';
-import GameRouter from './zelda/routers/GameRouter';
-Backbone.$ = $;
-Backbone._ = _;
 
 
 (function( $, PIXI, Backbone, GameRouter) {
