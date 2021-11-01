@@ -10,6 +10,6 @@ env.sh
 # Local Netlify folder
 .netlify
 # Parcel cache
-.cache
+.parcel-cache
 # build directory
 dist/

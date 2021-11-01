@@ -8,7 +8,6 @@ import Backbone from 'backbone';
 import _ from 'lodash';
 import PlayerModel from '../models/PlayerModel';
 import TilesCollections from '../collections/TilesCollection';
-import gameTemplate from '../templates/game.hbs';
 
 export default class GameView extends Backbone.View{
 
@@ -16,7 +15,6 @@ export default class GameView extends Backbone.View{
         super(options);
         // The DOM Element associated with this view
         this.el = "#zeldammo";
-        this.template = gameTemplate;
     }
 
     // View constructor
@@ -35,15 +33,8 @@ export default class GameView extends Backbone.View{
 
     // Renders the view's template to the UI
     render() {
-
-        // Setting the view's template property using the Underscore template method
-        //this.template = _.template(template, {});
-
-        // Dynamically updates the UI with the view's template
-        this.$el.html(gameTemplate());
-
         // Maintains chainability
-        return this;
+        return `<canvas id="game"></canvas>`;
 
     }
     onKeypress(){

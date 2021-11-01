@@ -1,8 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'lodash';
-import Handlebars from 'handlebars';
-import PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js'
 import IO from 'socket.io-client';
 import GameRouter from './zelda/routers/GameRouter';
 Backbone.$ = $;
