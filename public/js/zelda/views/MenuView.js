@@ -1,6 +1,4 @@
 import Backbone from 'backbone';
-import menuTemplate from '../templates/menu.hbs';
-
 export default
 class MenuView extends Backbone.View{
     constructor(options) {
@@ -14,7 +12,14 @@ class MenuView extends Backbone.View{
     }
 
     render() {
-
+        return `<div class="screen menu">
+    <h1>ZeldaMMO</h1>
+    <ul>
+        <li>
+            <a href="/game/new"></a>
+        </li>
+    </ul>
+</div>`
     }
 
     events() {
