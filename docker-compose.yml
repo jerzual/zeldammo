@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  postgres:
+    container_name: zm-db
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: zeldammo
+  redis:
+    container_name: zm-redis
+    image: redis
+  express:
+    container_name: zm-web
+    build: .
+    ports:
+      - 3000:3000
+      - 2567:2567
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:

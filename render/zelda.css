@@ -1,0 +1,61 @@
+:root {
+  --black: #000000;
+  --herbColor: #909868;
+  --herbDark: #909868;
+  --herbLight: #909868;
+
+  /* zelda cover */
+  --goldBG: #c0a369;
+
+  /* gameboy green */
+  --greenDark: #599079;
+  --greenBG: #b3d797;
+  --greenWhite: #f1ffe6;
+
+  /* ciel */
+  --sky: #6098b8;
+  --clouds: #c8d0d0;
+
+  /* mer */
+  --ocean: #406890;
+
+  --red: #983048;
+  --redDark: #502030;
+
+  --baseColor: #c8c8b8;
+  --treeColor: #285848;
+  --treeColorLight: #60a080;
+  --treeColorDark: #285848;
+
+  --stonePurple: #a0a0b0;
+
+  --stonePurpleDark: #404860;
+  --emerald: #60a090;
+  --emeraldDark: #286080;
+
+  --sandColor: #c8c8b8;
+  --sandColorDark: #b08060;
+
+  --hillsColor: #785050;
+
+  --shellColor: #285848;
+
+  --coconutShell: #785050;
+  --coconutLeaf: #285848;
+
+  --roofPurple: #a058a0;
+  --roofPurpleDark: #703858;
+  --roofBlue: #3078a8;
+  --roofBlueDark: #002858;
+
+  --sea: #6098b8;
+  --seaDark: #406890;
+}
+
+body {
+  background-color: var(--baseColor);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
