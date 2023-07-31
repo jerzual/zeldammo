@@ -1,6 +1,6 @@
 {
   "name": "zeldammo",
-  "description": "A recreation of Zelda link's awakening using pixi.js and fb game api",
+  "description": "A recreation of Zelda link's awakening using phaser and colyseum",
   "homepage": "http://zelda.herokuapp.com",
   "version": "0.0.1",
   "repository": {
@@ -9,69 +9,41 @@
   },
   "scripts": {
     "build": "npm run build:client && npm run build:server",
-    "build:client": "parcel build public/index.pug --target client",
-    "build:server": "parcel build server/app.ts --target server",
-    "start": "node server/index.js",
-    "dev": "ts-node-dev server/index.js",
-    "test": "jest",
-    "e2e": "cucumber"
-  },
-  "targets": {
-    "client": {
-      "context": "browser",
-      "distDir": "./dist/client"
-    },
-    "server": {
-      "context": "node",
-      "distDir": "./dist/server"
-    }
+    "build:client": "tsc && vite build",
+    "build:server": "esbuild server/app.ts --platform=node --minify --outfile=dist/server/index.js",
+    "start": "node ./dist/server/index.js",
+    "dev": "npm run dev:client & npm run dev:server",
+    "dev:server": "NODE_OPTIONS='--loader ts-node/esm' node server/app.ts -- --trace-warnings",
+    "dev:client": "vite",
+    "test": "vitest"
   },
   "dependencies": {
-    "@prisma/client": "^2.20.1",
-    "backbone": "^1.4.0",
-    "backbone.iobind": "^0.4.9",
-    "colyseus": "^0.14.23",
-    "epilogue": "^0.7.1",
-    "express": "^4.17.1",
-    "jquery": "^3.5.1",
-    "lodash": "^4.17.20",
-    "log4js": "^6.3.0",
-    "passport": "^0.4.1",
-    "passport-facebook": "^3.0.0",
-    "passport-google-auth": "^1.0.2",
-    "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4",
-    "pg": "^8.4.1",
-    "pg-hstore": "^2.3.3",
-    "phaser": "^3.24.1",
-    "pixi.js": "^6.2.0",
-    "pug": "^3.0.0",
-    "rxjs": "^7.4.0",
-    "sequelize": "^6.3.5",
-    "socket.io": "^2.3.0",
-    "uuid": "^8.3.1"
+    "@prisma/client": "^4.10.1",
+    "colyseus": "^0.14.24",
+    "colyseus.js": "^0.14.13",
+    "express": "^4.18.2",
+    "fp-ts": "^2.13.1",
+    "lodash-es": "^4.17.21",
+    "nanoid": "^4.0.1",
+    "phaser": "^3.55.2",
+    "pino": "^8.11.0",
+    "pino-http": "^8.3.3",
+    "rxjs": "^7.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "@cucumber/cucumber": "^8.0.0-rc.1",
-    "@nexus/schema": "^0.16.0",
-    "@parcel/transformer-pug": "^2.0.0",
-    "@parcel/transformer-sass": "^2.0.0",
-    "@types/jest": "^27.0.0",
-    "@types/node": "^14.11.8",
-    "jest": "^27.0.0",
-    "parcel": "^2.0.0",
-    "prisma": "^2.20.1",
-    "sass": "^1.43.4",
-    "socket.io-client": "^4.3.2",
-    "sqlite3": "^5.0.2",
-    "supertest": "^6.1.6",
-    "ts-jest": "^27.0.7",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.4"
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.1",
+    "prisma": "^4.10.1",
+    "sass": "^1.58.3",
+    "sqlite3": "^5.1.4",
+    "supertest": "^6.3.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "vitest": "^0.28.5"
   },
   "engines": {
-    "node": ">= 14.0.x"
-  }
+    "node": ">= 18.0.x"
+  },
+  "type": "module"
 }
