@@ -7,3 +7,9 @@ public/css/*.css
 public/js/*.min.js
 *.map
 env.sh
+# Local Netlify folder
+.netlify
+# Parcel cache
+.parcel-cache
+# build directory
+dist/
