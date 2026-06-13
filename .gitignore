@@ -13,3 +13,10 @@ env.sh
 .parcel-cache
 # build directory
 dist/
+
+### Agents file (use ln -s to agents.md if needed)
+CLAUDE.md
+cursorrules.md
+.github/copilot-instructions.md
+guidelines.md
+.instructions.md
