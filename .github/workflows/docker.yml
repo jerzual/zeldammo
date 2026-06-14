@@ -1,0 +1,61 @@
+---
+# Build the production Docker image and smoke-test the docker-compose stack.
+# Docker layers are cached in the GitHub Actions cache backend (type=gha),
+# so an unchanged pnpm-lock.yaml reuses the `pnpm install` layer instead of
+# re-downloading dependencies.
+
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_TAG: zeldammo:ci
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Validate compose file
+        run: docker compose config -q
+
+      - name: Start the stack
+        run: docker compose up -d
+
+      - name: Smoke test the web service
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:5173 >/dev/null; then
+              echo "web service is up"
+              exit 0
+            fi
+            echo "waiting for web service... ($i)"
+            sleep 2
+          done
+          echo "web service did not become healthy"
+          docker compose logs
+          exit 1
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

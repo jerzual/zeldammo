@@ -16,11 +16,13 @@ services:
   express:
     container_name: zm-web
     build: .
+    image: zeldammo:ci
     ports:
       - 5173:5173
       - 2567:2567
     depends_on:
       - postgres
+      - redis
 
 volumes:
   postgres-data:
