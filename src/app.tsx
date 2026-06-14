@@ -1,11 +1,16 @@
-import { useState } from 'react';
-
+import { useColyseus } from './client/net/use-colyseus';
 import Scene from './client/components/scene';
+import { useGameStore } from './client/store/game-store';
 
 import './app.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // Joins the 'overworld' room and syncs its state into the store.
+  useColyseus('overworld');
+
+  const connected = useGameStore((state) => state.connected);
+  const sessionId = useGameStore((state) => state.sessionId);
+  const players = useGameStore((state) => state.players);
 
   return (
     <>
@@ -16,7 +21,18 @@ function App() {
       </div>
       <h1>ZeldaMMO</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <p>
+          {connected ? `connected as ${sessionId}` : 'connecting…'} —{' '}
+          {Object.keys(players).length} player(s) online
+        </p>
+        <ul>
+          {Object.values(players).map((player) => (
+            <li key={player.id}>
+              {player.name} @ ({player.x.toFixed(1)}, {player.y.toFixed(1)},{' '}
+              {player.z.toFixed(1)})
+            </li>
+          ))}
+        </ul>
         <Scene />
       </div>
     </>
