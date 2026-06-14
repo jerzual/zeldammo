@@ -5,6 +5,8 @@ import { WebSocketTransport } from '@colyseus/ws-transport';
 import type { Application } from 'express';
 import { Logger } from 'pino';
 
+import { OverworldRoom } from './rooms/overworld.room';
+
 const port = Number(process.env.WS_PORT) || 2567;
 
 export function createGameServer(app: Application, logger: Logger) {
@@ -19,6 +21,7 @@ export function createGameServer(app: Application, logger: Logger) {
     gracefullyShutdown: true,
   });
   gameServer.define('lobby', LobbyRoom);
+  gameServer.define('overworld', OverworldRoom);
   gameServer.listen(port);
 
   gameServer.onShutdown(() => {
