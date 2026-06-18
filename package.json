@@ -18,7 +18,7 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",
-    "lint:check": "oxlint --check",
+    "lint:check": "oxlint --format=github",
     "preview": "cross-env NODE_ENV=production node server",
     "test": "vitest"
   },
