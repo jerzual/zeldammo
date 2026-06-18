@@ -11,7 +11,7 @@ Using modern html5 game engine, sprites from thomas neville, map by myself, and 
 
 - [x] migrate to vite / vitest and phaser
 - [x] init server api with colyseus
-- [ ] make websockets work
+- [x] make websockets work
 - [ ] name field and join game
 - [ ] setup docker deployment on pull requests
 - [ ] setup production deployment
