@@ -20,12 +20,14 @@ CI (`.github/workflows/node.js.yml`) runs `pnpm install && pnpm run build && pnp
 ## Architecture
 
 **One Node process, two servers.** `server.js` (the entry for every run mode) creates the Express app AND boots the Colyseus game server in the same process via `createGameServer(app, logger)` (`src/server/game-server.ts`). HTTP/SSR is on `PORT` (5173); Colyseus WS is on `WS_PORT` (2567). `server.js` branches on `NODE_ENV`:
+
 - **dev**: Vite middleware + `vite.ssrLoadModule(...)` loads `src/server/game-server.ts` and `src/entry-server.tsx` fresh per request.
 - **prod**: serves `dist/client` via sirv and imports the prebuilt `dist/game/game-server.js` + `dist/server/entry-server.js`. **The template HTML and these bundles are cached at startup** — so in prod a code change requires `pnpm build` **and** a server restart to take effect (a rebuild alone is not picked up).
 
 **SSR React.** `index.html` has `<!--app-head-->` / `<!--app-html-->` placeholders. `entry-server.tsx` renders to string; `entry-client.tsx` hydrates `#root`. App root is `src/app.tsx`.
 
 **Colyseus → Zustand state flow** (the core pattern):
+
 - `src/schemas/*.schema.ts` define the authoritative state (`GameState` holds `MapSchema<Player>`). These classes are **shared by both server and client** — the client imports them as `import type` only (decoding happens via the SDK's schema reflection at runtime).
 - Server rooms live in `src/server/rooms/*.room.ts` and are registered by name in `game-server.ts` (e.g. `'overworld'`). A room owns `this.state`, mutates it on `onJoin`/`onLeave` and message handlers.
 - `src/client/net/colyseus-bridge.ts` joins a room and pipes Colyseus `getStateCallbacks` (`onAdd`/`onChange`/`onRemove`) into the Zustand store.
@@ -34,7 +36,7 @@ CI (`.github/workflows/node.js.yml`) runs `pnpm install && pnpm run build && pnp
 
 ## Colyseus / schema constraints (read before touching deps)
 
-- The browser client is **`@colyseus/sdk`** (0.17). It is *not* `colyseus.js` (the old ≤0.16 client) and *not* `colyseus` (the Node server meta-package). Importing the wrong one breaks the matchmaking handshake.
+- The browser client is **`@colyseus/sdk`** (0.17). It is _not_ `colyseus.js` (the old ≤0.16 client) and _not_ `colyseus` (the Node server meta-package). Importing the wrong one breaks the matchmaking handshake.
 - All Colyseus packages must move together on **0.17 / schema v4**: `@colyseus/core`, `@colyseus/ws-transport`, `@colyseus/sdk`, and `@colyseus/schema` (pinned `4.0.26`). Client and server must share the same schema major — the seat-reservation/handshake format changed between 0.16 and 0.17.
 - `@colyseus/schema` uses **legacy property decorators**, so `tsconfig.json` sets `experimentalDecorators: true` and `useDefineForClassFields: false`. Do not flip these — with `useDefineForClassFields: true`, schema field initializers shadow the accessors `@type()` installs and silently break state change-tracking. Schema fields therefore use plain initializers (`@type('number') x = 0`).
 - The native `@colyseus/uwebsockets-transport` is intentionally excluded via `ignoredOptionalDependencies` in `pnpm-workspace.yaml` (pnpm v11 no longer reads the `pnpm` field in `package.json`).

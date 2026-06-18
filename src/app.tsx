@@ -1,5 +1,5 @@
-import { useColyseus } from './client/net/use-colyseus';
 import Scene from './client/components/scene';
+import { useColyseus } from './client/net/use-colyseus';
 import { useGameStore } from './client/store/game-store';
 
 import './app.css';
@@ -22,14 +22,13 @@ function App() {
       <h1>ZeldaMMO</h1>
       <div className="card">
         <p>
-          {connected ? `connected as ${sessionId}` : 'connecting…'} —{' '}
-          {Object.keys(players).length} player(s) online
+          {connected ? `connected as ${sessionId}` : 'connecting…'} — {Object.keys(players).length}{' '}
+          player(s) online
         </p>
         <ul>
           {Object.values(players).map((player) => (
             <li key={player.id}>
-              {player.name} @ ({player.x.toFixed(1)}, {player.y.toFixed(1)},{' '}
-              {player.z.toFixed(1)})
+              {player.name} @ ({player.x.toFixed(1)}, {player.y.toFixed(1)}, {player.z.toFixed(1)})
             </li>
           ))}
         </ul>

@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
-
 import type { Room } from '@colyseus/sdk';
+import { useEffect, useRef } from 'react';
 
 import type { GameState } from '../../schemas/game-state.schema';
 import { connect } from './colyseus-bridge';
