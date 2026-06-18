@@ -20,7 +20,8 @@
     "lint": "oxlint",
     "lint:check": "oxlint --format=github",
     "preview": "cross-env NODE_ENV=production node server",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky"
   },
   "dependencies": {
     "@colyseus/core": "^0.17.43",
@@ -56,10 +57,16 @@
     "@types/three": "^0.184.1",
     "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.69.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "oxlint",
+    "*": "oxfmt --no-error-on-unmatched-pattern"
   },
   "engines": {
     "node": ">=24.x"
