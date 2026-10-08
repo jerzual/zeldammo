@@ -1,21 +1,193 @@
-# zeldammo
+# ZeldaMMO
 
-A recreation of Zelda gameplay using Game Boy games look & feel.
+ZeldaMMO is an early-stage multiplayer, Zelda-inspired game built with React, Three.js, and an authoritative Colyseus server. It takes visual inspiration from the Game Boy entries, particularly _Link's Awakening_, _Oracle of Ages_, and _Oracle of Seasons_.
 
-- [Link's Awakening](http://fr.wikipedia.org/wiki/The_Legend_of_Zelda:_Link's_Awakening)
-- [Oracle of Ages/Oracle of Seasons](https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Oracle_of_Seasons_and_Oracle_of_Ages)
+The repository currently provides the application foundation: server-side rendered React, a React Three Fiber client, multiplayer room lifecycle, synchronized player state, and a Zustand-backed roster UI. Core gameplay and most world-rendering components are still under development.
 
-Using modern html5 game engine, sprites from thomas neville, map by myself, and of course the original creators (credits).
+## Tech stack
 
-## TODOLIST
+- React 19 with server-side rendering and hydration
+- React Three Fiber, Drei, and Rapier for the 3D client
+- Colyseus 0.17 with schema v4 for authoritative multiplayer state
+- Zustand for render-friendly client state
+- Express and Vite middleware in a single Node.js process
+- TypeScript, Vitest, oxlint, and oxfmt
+- Optional PostgreSQL and Redis services for future persistence work
 
-- [x] migrate to vite / vitest and phaser
-- [x] init server api with colyseus
-- [x] make websockets work
-- [ ] name field and join game
-- [ ] setup docker deployment on pull requests
-- [ ] setup production deployment
-- [ ] cylindric world terrain
-- [ ] game basics movement
+## Requirements
 
-## Roadmap
+- Node.js 24 or newer
+- pnpm 11
+
+Corepack can install and activate the expected pnpm major:
+
+```sh
+corepack enable
+corepack prepare pnpm@11 --activate
+```
+
+## Quick start
+
+```sh
+pnpm install
+pnpm dev
+```
+
+Open [http://localhost:5173](http://localhost:5173). The same Node.js process starts:
+
+- the HTTP and SSR application on `http://localhost:5173`
+- the Colyseus WebSocket server on `ws://localhost:2567`
+
+Opening the application in multiple browser tabs creates multiple players in the `overworld` room. The current UI displays connection status and the synchronized player roster; playable movement is not implemented yet.
+
+## Configuration
+
+| Variable            | Default               | Purpose                                           |
+| ------------------- | --------------------- | ------------------------------------------------- |
+| `PORT`              | `5173`                | Express HTTP server port                          |
+| `WS_PORT`           | `2567`                | Colyseus WebSocket server port                    |
+| `BASE`              | `/`                   | Vite and static asset base path                   |
+| `VITE_COLYSEUS_URL` | `ws://localhost:2567` | WebSocket endpoint embedded in the browser bundle |
+| `NODE_ENV`          | unset                 | Use `production` to serve prebuilt assets         |
+
+For example:
+
+```sh
+VITE_COLYSEUS_URL=ws://localhost:2567 pnpm dev
+```
+
+`VITE_COLYSEUS_URL` is a Vite client variable. Set it when building for a deployed environment so browsers connect to a publicly reachable WebSocket endpoint.
+
+## Commands
+
+| Command                  | Description                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| `pnpm dev`               | Run Vite middleware, SSR, and Colyseus in development mode   |
+| `pnpm build`             | Build the browser, SSR, and game-server bundles into `dist/` |
+| `pnpm preview`           | Serve the prebuilt application with `NODE_ENV=production`    |
+| `pnpm test`              | Run the Vitest test suite                                    |
+| `pnpm lint`              | Lint the project with oxlint                                 |
+| `pnpm lint:check`        | Run CI-formatted lint checks                                 |
+| `pnpm format`            | Format the repository with oxfmt                             |
+| `pnpm format:check`      | Check formatting without changing files                      |
+| `pnpm exec tsc --noEmit` | Type-check the project                                       |
+
+Run a specific test with:
+
+```sh
+pnpm exec vitest run src/schemas/player.schema.test.ts
+```
+
+## Architecture
+
+One Node.js process hosts two servers:
+
+```text
+Browser
+  ├─ HTTP :5173 ──> Express ──> Vite middleware or dist/client ──> React SSR
+  └─ WS   :2567 ──> Colyseus ──> overworld room ──> authoritative GameState
+                                            │
+                                            └─ schema updates
+                                                  │
+                                                  v
+                                      Colyseus bridge ──> Zustand ──> UI
+```
+
+In development, Express uses Vite middleware and loads the SSR and game-server modules on demand. In production, it serves the three bundles generated by `pnpm build`:
+
+```text
+dist/
+├── client/   # browser assets and SSR manifest
+├── server/   # React SSR entry
+└── game/     # Colyseus server entry
+```
+
+Production templates and modules are loaded when the process starts. After rebuilding, restart `pnpm preview` for the new output to take effect.
+
+### Multiplayer state flow
+
+1. `OverworldRoom` owns and mutates the authoritative `GameState`.
+2. Shared Colyseus schemas describe players and their positions.
+3. The browser joins the `overworld` room through `useColyseus`.
+4. `colyseus-bridge.ts` mirrors room callbacks into the Zustand store.
+5. React components subscribe to plain `PlayerView` objects for roster and HUD rendering.
+
+High-frequency transforms should not flow through Zustand. Render-loop code should read positions directly from `room.state` inside React Three Fiber's `useFrame`; otherwise every networked position update can trigger a React render.
+
+## Project layout
+
+```text
+src/
+├── client/
+│   ├── components/       # React and React Three Fiber UI
+│   ├── net/              # Colyseus connection lifecycle and state bridge
+│   └── store/            # Zustand client view state
+├── schemas/              # Shared Colyseus schema definitions
+├── server/
+│   ├── rooms/            # Authoritative multiplayer rooms
+│   └── game-server.ts    # Colyseus setup and room registration
+├── app.tsx               # Application root
+├── entry-client.tsx      # Browser hydration entry
+└── entry-server.tsx      # React SSR entry
+```
+
+`server.js` is the runtime entry point for both development and production.
+
+## Colyseus constraints
+
+Keep these invariants intact when updating multiplayer dependencies:
+
+- The browser client is `@colyseus/sdk`, not the legacy `colyseus.js` package or the Node-oriented `colyseus` meta-package.
+- `@colyseus/core`, `@colyseus/ws-transport`, and `@colyseus/sdk` must remain compatible with Colyseus 0.17 and `@colyseus/schema` v4.
+- Schema decorators require `experimentalDecorators: true` and `useDefineForClassFields: false` in `tsconfig.json`.
+- Schema fields use normal initializers such as `@type('number') x = 0`.
+- The optional native uWebSockets transport is intentionally excluded in `pnpm-workspace.yaml`.
+
+Changing these independently can break schema tracking or the client/server matchmaking handshake without an obvious compile-time error.
+
+## Production and Docker
+
+Build and run the production server locally:
+
+```sh
+pnpm build
+pnpm preview
+```
+
+Build and run the containerized stack:
+
+```sh
+docker compose up --build
+```
+
+The Compose stack publishes ports `5173` and `2567` and also starts PostgreSQL and Redis. Those data services are placeholders: the application does not currently connect to them or persist game state.
+
+## Current scope
+
+Implemented:
+
+- React SSR and client hydration
+- Colyseus WebSocket server and `overworld` room
+- synchronized player join/leave state
+- Zustand roster bridge
+- three-dimensional player position schema
+- production and container builds
+
+Planned:
+
+- player naming and join flow
+- world and character rendering
+- server-authoritative movement
+- cylindrical world terrain
+- gameplay systems
+- persistence and deployment
+
+## Assets and attribution
+
+The sprite collection includes material sourced from [The Spriters Resource](https://www.spriters-resource.com/), with references for:
+
+- [The Legend of Zelda: Link's Awakening](https://www.spriters-resource.com/game_boy_gbc/thelegendofzeldalinksawakening/)
+- [The Legend of Zelda: Oracle of Ages](https://www.spriters-resource.com/game_boy_gbc/thelegendofzeldaoracleofages/)
+- [The Legend of Zelda: Oracle of Seasons](https://www.spriters-resource.com/game_boy_gbc/thelegendofzeldaoracleofseasons/)
+
+Zelda and related names and assets are trademarks and property of Nintendo and their respective owners. This is a fan project and is not affiliated with or endorsed by Nintendo.
